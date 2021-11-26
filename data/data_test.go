@@ -55,6 +55,27 @@ func TestFormatData(t *testing.T) {
 			// find the index of the element in orderData
 			// then remove it from the slice via index
 			// shift all the slices from the right to the left.
+
+			// get the id of the order to cancel
+			oid, err := strconv.Atoi(temp[1])
+			if err != nil {
+				return
+			}
+			fmt.Println("X", oid)
+
+			// loop through the orders to find the id
+			// might cause race condition
+			for i, v := range orderData {
+				temp := v
+				if temp.orderId == int32(oid) {
+					fmt.Println("found oid", oid)
+					fmt.Println("found orderId", temp.orderId)
+					orderData[i] = Order{}
+				}
+			}
+
 		}
 	}
+	fmt.Println("final order")
+	fmt.Println(orderData)
 }
