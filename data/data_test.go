@@ -71,3 +71,19 @@ func TestFormatData(t *testing.T) {
 	fmt.Println("final order")
 	fmt.Println(orderData)
 }
+
+func TestCopySlice(*testing.T) {
+	slice := []float64{1, 2, 3, 4, 5}
+	sliceCopy := copySlice(slice)
+	if sliceCopy[0] != 1 {
+		panic("copySlice failed")
+	}
+}
+
+func TestReverse(*testing.T) {
+	slice := []float64{1, 2, 3, 4, 5}
+	reverse(slice)
+	if slice[0] != 5 {
+		panic("reverseSlice failed")
+	}
+}

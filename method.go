@@ -4,14 +4,12 @@ import (
 	"bufio"
 	"fmt"
 	"log"
-	"order-book-demo/data"
+	d "order-book-demo/data"
 	"os"
 	"sort"
 	"strconv"
 	"strings"
 )
-
-var order data.Order
 
 func readMarketData() {
 	// read market data
@@ -59,7 +57,7 @@ func readMarketData() {
 	}
 }
 
-func addOrder(receivedOrder data.Order) {
+func addOrder(receivedOrder d.Order) {
 	// add order to orderbook
 	switch receivedOrder.Side {
 	case "B":
@@ -83,7 +81,7 @@ func addOrder(receivedOrder data.Order) {
 	trade(receivedOrder)
 }
 
-func cancelOrder(receivedOrder data.Order) {
+func cancelOrder(receivedOrder d.Order) {
 	// cancel order
 	switch receivedOrder.Side {
 	case "B":
@@ -93,7 +91,7 @@ func cancelOrder(receivedOrder data.Order) {
 	}
 }
 
-func trade(receivedOrder data.Order) {
+func trade(receivedOrder d.Order) {
 	switch receivedOrder.Side {
 	case "B":
 		for _, price := range book.AskPricePoints {
@@ -177,21 +175,21 @@ func trade(receivedOrder data.Order) {
 	}
 }
 
-func parseOrder(receivedOrder string) (data.Order, error) {
+func parseOrder(receivedOrder string) (d.Order, error) {
 	orderParts := strings.Split(receivedOrder, ",")
-	o := data.Order{
+	o := d.Order{
 		Id:       parseInt(orderParts[1]),
 		Side:     orderParts[2],
 		Quantity: parseInt(orderParts[3]),
 		Price:    parseFloat(orderParts[4]),
 	}
 	if o.Quantity < 1 {
-		return data.Order{}, fmt.Errorf("quantity must be greater than 0")
+		return d.Order{}, fmt.Errorf("quantity must be greater than 0")
 	}
 	return o, nil
 }
 
-func removeOrder(orders []data.Order, receivedOrder data.Order) []data.Order {
+func removeOrder(orders []d.Order, receivedOrder d.Order) []d.Order {
 	// remove order from list
 	for i, order := range orders {
 		if order.Id == receivedOrder.Id {
@@ -202,7 +200,7 @@ func removeOrder(orders []data.Order, receivedOrder data.Order) []data.Order {
 	return orders
 }
 
-func updateOrderInList(orders []data.Order, receivedOrder data.Order) []data.Order {
+func updateOrderInList(orders []d.Order, receivedOrder d.Order) []d.Order {
 	for i, order := range orders {
 		if order.Id == receivedOrder.Id {
 			orders[i] = receivedOrder
