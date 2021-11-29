@@ -7,13 +7,6 @@ import (
 	"testing"
 )
 
-type Order struct {
-	action  string
-	orderId int32
-	share   int32
-	price   int32
-}
-
 var orders []string
 var temp []string
 
@@ -42,10 +35,9 @@ func TestFormatData(t *testing.T) {
 			}
 
 			newOrder := Order{
-				action:  temp[2],
-				orderId: int32(oid),
-				share:   int32(share),
-				price:   int32(price),
+				Id:       int64(oid),
+				Quantity: int64(share),
+				Price:    float64(price),
 			}
 
 			orderData = append(orderData, newOrder)
@@ -67,9 +59,9 @@ func TestFormatData(t *testing.T) {
 			// might cause race condition
 			for i, v := range orderData {
 				temp := v
-				if temp.orderId == int32(oid) {
+				if temp.Id == int64(oid) {
 					fmt.Println("found oid", oid)
-					fmt.Println("found orderId", temp.orderId)
+					fmt.Println("found orderId", temp.Id)
 					orderData[i] = Order{}
 				}
 			}
