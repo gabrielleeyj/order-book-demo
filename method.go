@@ -13,7 +13,7 @@ import (
 
 func readMarketData() {
 	// read market data
-	file, err := os.Open("./data/orderData.txt")
+	file, err := os.Open("./data/sample.txt")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -4,7 +4,7 @@ A simulation to create an order book. From a known dataset.
 ## Instruction
 1. Clone repo.
 2. Run `go mod tidy` at the root of the directory.
-3. Run `go run main.go` to run the program.
+3. Run `go build order-book-demo` to run the program.
 4. Run `go test` to run the test suite.
 
 ### Operations
